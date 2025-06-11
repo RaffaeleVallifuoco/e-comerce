@@ -8,7 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(mane = "Categoria")
+@Table(name = "Categoria")
 public class Categoria {
 
     @Id
@@ -20,10 +20,10 @@ public class Categoria {
 
     // CONSTRUCTORS
 
-    public Categora() {
+    public Categoria() {
     }
 
-    public Categora(Integer id, String nome) {
+    public Categoria(Integer id, String nome) {
         this.id = id;
         this.nome = nome;
     }
@@ -70,7 +70,7 @@ public class Categoria {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Categora other = (Categora) obj;
+        Categoria other = (Categoria) obj;
         if (id == null) {
             if (other.id != null)
                 return false;

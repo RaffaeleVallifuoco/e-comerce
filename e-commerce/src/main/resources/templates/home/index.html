@@ -68,27 +68,21 @@
                  <div class="row">
                     <!-- CAROUSEL  -->
                     <div id="carouselExampleAutoplaying" class="carousel slide mt-4" data-bs-ride="carousel">
-                        <div class="fs-6 text-center accent">Oggi in evidenza</div>
-                        <div id="postCarousel" class="carousel slide" data-bs-ride="carousel" style="height: 100%;">
-                            <div class="carousel-inner" style="height: 100%">
-                                <div class="carousel-item" th:each="product, iter : ${lastFourPost}"
-                                    th:classappend="${iter.index == 0} ? 'active'" style="height: 100%">
-                                    <div class="carousel_card carousel_card_bg">
-                                        
-                                            <div class="card-body card_body">
-                                                <!-- IMG -->
-                                                <img th:src="@{/img/{imageName}(imageName=${product.photoPath})}" alt="Photo" class="img-fluidpy-2 card_img">
-                                                <!-- TITLE -->
-                                                <a th:href="@{/home(categoryName=${product.Categoria.nome})}" class=" text-decoration-none ms-auto"
-                                                    th:text="${product.categoria.nome}">Categoria</a>
-                                        
-                                                </a>
-                                                <h5 class="card-title fs-4 m-2" th:text="${product.nome}"></h5>
-                                                <!-- BODY  -->
-                                                <p class="card-text" th:text="${#strings.abbreviate(product.descrizione, 100)}"></p>
-                                                <a href="#" class=" mdb-button text-decoration-none fs-6">continua a leggere</a>
-                                            </div>
-                                    
+                        <div class="fs-6 text-center accent">Prodotti in evidenza</div>
+                        <div id="postCarousel" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item" th:each="product, iter : ${list}"
+                                    th:classappend="${iter.index == 0} ? 'active'">
+                                    <div class="carousel_card text-center align-item-center carousel_card_bg" style="width: 100%; max-height: 350px; overflow: hidden;">
+                                        <div class="card-body text-center card_body">
+                                            <!-- IMG -->
+                                            <img th:src="@{/img/{imageName}(imageName=${product.photoPath})}" alt="Photo" class="img-fluid w-100 d-block mx-auto carousel_img" style="object-fit: cover; height: auto; max-height: 500px;">
+                                            <h5 class="card-title fs-4 m-2" th:text="${product.nome}"></h5>
+                                            <!-- BODY  -->
+                                            <p class="card-text" th:text="${#strings.abbreviate(product.descrizione, 100)}"></p>
+                                            <a href="#" class=" mdb-button text-decoration-none fs-6">continua a leggere</a>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -107,7 +101,7 @@
                  </div>
                  <!-- SECOND ROW -->
                 <div class="row">
-                    <!-- CARD  -->
+                    <!-- CARD -->
                     <div class="col-lg-3 my-4" th:each="product, iter : ${list}" th:classappend="${iter.index == 0} ? 'card-highlight' : ''">
                         <div class="card glass card_bg">
                             <div class="card-body card_body">

@@ -105,7 +105,6 @@ body {
 
 
 .carousel_card {
-    height: 90px;
     display: flex;
     flex-direction: column;
     transition: transform 0.4s ease;
@@ -113,8 +112,13 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
-
-
+.carousel_img {
+   /* height: 15%;
+    width: 15%; */
+    position: cover;
+    object-fit: cover;
+    border-radius: 30px;
+}
 
 
 .carousel_card_bg {
@@ -131,6 +135,8 @@ body {
 
 .accent {
     color: rgb(209, 175, 153);
+}
+
 
 
 .separator {

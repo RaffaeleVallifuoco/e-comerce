@@ -48,4 +48,24 @@ public class IndexController {
         return "/home/index";
     }
 
+    @GetMapping("/tab")
+    public String getTable(Model model, @RequestParam(name = "keyword", required = false) String keyword) {
+
+        List<Prodotto> productList = new ArrayList<>();
+
+        if (keyword != null && !keyword.isBlank()) {
+
+            productRepo.cercaProdotti(keyword);
+
+        } else {
+
+            productList = productRepo.findAll();
+        }
+
+        model.addAttribute("list", productList);
+        model.addAttribute("keyword", keyword);
+
+        return "/home/tab";
+    }
+
 }

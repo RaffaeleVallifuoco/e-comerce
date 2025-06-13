@@ -21,6 +21,17 @@ body {
     transition: all 0.3s ease-in-out;
 }
 
+.nav_input {
+    background-color: rgba(92, 91, 91, 0.504);
+    border-radius: 40px;
+}
+
+.nav_input:hover {
+    background-color: #6395ce9c;
+    border-radius: 40px;
+    z-index: 2;
+}
+
 .bg_color {
     background: rgba(0, 0, 0, 0.987);
     min-height: 160vh;

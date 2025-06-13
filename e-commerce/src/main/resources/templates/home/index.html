@@ -19,42 +19,25 @@
   <header>
     <nav class="navbar glass_nav">
         <div class="container-fluid my-o py-0 ">
-            <a class="navbar-brand icon-link icon-link-hover fs-4 my-0 py-0 mx-5" th:href="@{/}">
+            <a class="navbar-brand icon-link icon-link-hover fs-4 my-0 py-0 mx-5" th:href="@{/index}">
                 <img th:src="@{/img/nozama_logo_white.png}" alt="nozama ogo" class="navbar-logo my-o py-0" width="90" />
             </a>
             <div class=" me-auto mx-4 ">
-                <a class="text-decoration-none text-white mx-4" href="/home">Home</a>
-                <a class="text-decoration-none text-white mx-4" href="/home?categoryName=tech">Tecnologia</a>
-                <a class="text-decoration-none text-white mx-4" href="/home?categoryName=Smartphone">Smartphone</a>
-                <a class="text-decoration-none text-white mx-4" href="/home?categoryName=utility">Curiosità</a>
-                <a class="text-decoration-none text-white mx-4" href="/home?categoryName=game">Game</a>
+                <a class="text-decoration-none text-white mx-4" href="/index/1">Elettronica</a>
+                <a class="text-decoration-none text-white mx-4" href="/index/2">Abbigliamento</a>
+                <a class="text-decoration-none text-white mx-4" href="/index/3">Casa</a>
             </div>
     
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <i class="bi bi-search fs-4 fw-bold"></i>
-            </button>
-            <div class="collapse navbar-collapse " id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto my-3 mb-lg-0 d-flex text-end">
-                    <li>
-                        <form class="d-flex ms-auto w-25 opacity-50" role="search">
-                            <input type="text" name="keyword" class="form-control me-2 border-0 rounded" placeholder="Cerca nel sito"
-                                aria-label="cerca" th:value="${keyword}">
-                            <button class="btn mdb-button btn-outline-tertiary rounded" type="submit">Vai</button>
-                        </form>
-                    </li>
-                    <li>
-                        <div class="fs-6 opacity-50">
-                            <a class="btn btn-dark  p-2 icon-link icon-link-hover text-decoration-none  text-white rounded-pill"
-                                th:href="@{/home}">
-                                <i class="bi bi-x" style="color: rgb(255, 255, 255);"></i>
-                                <span class="fs-6 mt-1"> rimuovi filtri</span>
-                            </a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+            <form class="d-flex ms-auto w-25 opacity-50 position-relative" role="search" method="get" action="/index">
+                <input type="text" name="keyword" class="nav_input form-control text-white border-0  pe-5" placeholder="Cerca nel sito"
+                    aria-label="cerca" th:value="${keyword}">
+                <a th:if="${keyword != null && !keyword.isEmpty()}"
+                   th:href="@{/index}" class="position-absolute end-0 top-50 translate-middle-y me-3 text-decoration-none ">
+                    <a class="navbar-brand icon-link icon-link-hover fs-4 my-0 py-0 mx-5" th:href="@{/index}">
+                        <img alt="nozama ogo" class="bi bi-x-circle navbar-logo my-o py-0" width="90" />
+                    </a>
+                </a>
+            </form>
         </div>
     </nav>
   </header>

@@ -39,8 +39,8 @@
                 <ul class="navbar-nav me-auto my-3 mb-lg-0 d-flex text-end">
                     <li>
                         <form class="d-flex ms-auto w-25 opacity-50" role="search">
-                            <input type="text" name="searchContent" class="form-control me-2 border-0 rounded"
-                                placeholder="Filtra per titolo" aria-label="Cerca nel sito">
+                            <input type="text" name="keyword" class="form-control me-2 border-0 rounded" placeholder="Cerca nel sito"
+                                aria-label="cerca" th:value="${keyword}">
                             <button class="btn mdb-button btn-outline-tertiary rounded" type="submit">Vai</button>
                         </form>
                     </li>

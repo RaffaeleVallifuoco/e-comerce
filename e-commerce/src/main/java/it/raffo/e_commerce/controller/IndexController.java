@@ -7,11 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import it.raffo.e_commerce.model.Categoria;
 import it.raffo.e_commerce.model.Prodotto;
 import it.raffo.e_commerce.repository.ProdottoRepo;
+import jakarta.websocket.server.PathParam;
 import it.raffo.e_commerce.repository.CategoryRepo;
 import it.raffo.e_commerce.repository.MarcaRepo;
 
@@ -35,7 +38,7 @@ public class IndexController {
 
         if (keyword != null && !keyword.isBlank()) {
 
-            productRepo.cercaProdotti(keyword);
+            productList = productRepo.cercaProdotti(keyword);
 
         } else {
 
@@ -48,24 +51,17 @@ public class IndexController {
         return "/home/index";
     }
 
-    @GetMapping("/tab")
-    public String getTable(Model model, @RequestParam(name = "keyword", required = false) String keyword) {
+    @GetMapping("/index/{category_id}")
+    public String getCategory(@PathVariable("category_id") Integer categoryId,
+            Model model) {
 
         List<Prodotto> productList = new ArrayList<>();
 
-        if (keyword != null && !keyword.isBlank()) {
-
-            productRepo.cercaProdotti(keyword);
-
-        } else {
-
-            productList = productRepo.findAll();
-        }
+        productList = productRepo.findByCategoriaId(categoryId);
 
         model.addAttribute("list", productList);
-        model.addAttribute("keyword", keyword);
 
-        return "/home/tab";
+        return "/home/index";
     }
 
 }

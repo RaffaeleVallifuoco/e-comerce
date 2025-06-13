@@ -16,7 +16,7 @@ import it.raffo.e_commerce.repository.CategoryRepo;
 import it.raffo.e_commerce.repository.MarcaRepo;
 
 @Controller
-@RequestMapping("/home")
+@RequestMapping("/")
 public class IndexController {
 
     @Autowired

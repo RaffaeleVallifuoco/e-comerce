@@ -1,0 +1,159 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #202425;
+}
+
+.glass {
+    background: rgba(36, 36, 36, 0.5);
+    backdrop-filter: blur(15px);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease-in-out;
+}
+
+.glass_nav {
+    background: linear-gradient(to bottom, rgba(14, 71, 81, 0.85), rgba(9, 45, 51, 0.85));
+    backdrop-filter: blur(14px);
+    border-radius: 24px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+}
+
+.bg_color {
+    background: rgba(0, 0, 0, 0.987);
+    min-height: 160vh;
+    min-width: 100vw;
+    background-size: cover;
+    background-position: center;
+}
+
+
+
+.card {
+    background: rgba(5, 0, 44, 0.213);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(102, 102, 102, 0.229);
+    border-radius: 24px;
+    padding: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.card:hover {
+    box-shadow: 0 8px 12px rgba(67, 66, 66, 0.3);
+    transform: scale(1.05);
+    z-index: 2;  
+}
+
+.card_img {
+    min-height: 60px;
+    max-height: 1200px;
+    max-width: 120px;
+    object-fit: cover;
+    border-radius: 30px;
+    ;
+    box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.651);
+}
+
+.card_body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-text {
+    font-size: small;
+    color: rgb(199, 198, 198);
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+
+
+.login_card input,
+.login_card button {
+    width: 100%;
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+}
+
+.login_card input {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.login_card button {
+    background: #FF9900;
+    color: #000;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s ease;
+}
+
+.login_card button:hover {
+    background: #FFB84D;
+}
+
+
+.carousel_card {
+    height: 90px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.4s ease;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+
+
+
+
+.carousel_card_bg {
+    background: rgba(89, 88, 97, 0.292);
+    backdrop-filter: blur(12px);
+    border: 0px solid rgba(102, 102, 102, 0.229);
+    border-radius: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+.overflow {
+    overflow: visible;
+    height: 100%;
+}
+
+.accent {
+    color: rgb(209, 175, 153);
+
+
+.separator {
+    width: 1px;
+    background-color: rgba(0, 0, 0, 0.2);
+    /* Colore del separatore */
+    height: 100%;
+    /* Altezze varie a seconda del contenuto */
+}
+
+.footer_image {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    width: 220px;
+    height: 200px;
+    z-index: 1;
+}
+
+.footer_color {
+    background: rgba(20, 20, 20, 1);
+    min-height: 20vh;
+    background-size: cover;
+    background-position: center;
+}

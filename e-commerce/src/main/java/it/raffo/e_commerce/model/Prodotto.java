@@ -36,6 +36,9 @@ public class Prodotto {
     @Column(name = "data_produzione", nullable = false)
     private LocalDate dataProduzione;
 
+    @Column(name = "foto_path")
+    private String photoPath;
+
     @ManyToOne
     @JoinColumn(name = "categoria_id", nullable = false)
     private Categoria categoria;
@@ -50,7 +53,7 @@ public class Prodotto {
     }
 
     public Prodotto(Integer id, String nome, String descrizione, Double prezzo, Integer quantita,
-            LocalDate dataProduzione, Categoria categoria, Marca marca) {
+            LocalDate dataProduzione, Categoria categoria, Marca marca, String foto) {
         this.id = id;
         this.nome = nome;
         this.descrizione = descrizione;
@@ -59,6 +62,7 @@ public class Prodotto {
         this.dataProduzione = dataProduzione;
         this.categoria = categoria;
         this.marca = marca;
+        this.photoPath = foto;
     }
 
     // GETTER & SETTER
@@ -201,6 +205,14 @@ public class Prodotto {
         } else if (!marca.equals(other.marca))
             return false;
         return true;
+    }
+
+    public String getPhotoPath() {
+        return photoPath;
+    }
+
+    public void setPhotoPath(String photoPath) {
+        this.photoPath = photoPath;
     }
 
 }

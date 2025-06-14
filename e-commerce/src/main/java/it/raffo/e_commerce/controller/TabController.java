@@ -2,7 +2,6 @@ package it.raffo.e_commerce.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,17 +9,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import it.raffo.e_commerce.model.Categoria;
 import it.raffo.e_commerce.model.Prodotto;
 import it.raffo.e_commerce.repository.ProdottoRepo;
-import jakarta.websocket.server.PathParam;
 import it.raffo.e_commerce.repository.CategoryRepo;
 import it.raffo.e_commerce.repository.MarcaRepo;
 
 @Controller
-@RequestMapping("/index")
-public class IndexController {
+@RequestMapping("/tab")
+public class TabController {
 
     @Autowired
     ProdottoRepo productRepo;
@@ -35,7 +31,6 @@ public class IndexController {
     public String index(Model model, @RequestParam(name = "keyword", required = false) String keyword) {
 
         List<Prodotto> productList = new ArrayList<>();
-        List<Prodotto> evidenceList = new ArrayList<>();
 
         if (keyword != null && !keyword.isBlank()) {
 
@@ -46,13 +41,10 @@ public class IndexController {
             productList = productRepo.findAll();
         }
 
-        evidenceList = productRepo.findByEvidenceTrue();
-
         model.addAttribute("list", productList);
         model.addAttribute("keyword", keyword);
-        model.addAttribute("evidence", evidenceList);
 
-        return "/home/index";
+        return "/tab/index";
     }
 
     @GetMapping("/home/{category_id}")
@@ -65,7 +57,7 @@ public class IndexController {
 
         model.addAttribute("list", productList);
 
-        return "/home/index";
+        return "/tab/index";
     }
 
 }

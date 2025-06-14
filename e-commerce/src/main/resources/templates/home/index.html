@@ -23,9 +23,9 @@
                 <img th:src="@{/img/nozama_logo_white.png}" alt="nozama ogo" class="navbar-logo my-o py-0" width="90" />
             </a>
             <div class=" me-auto mx-4 ">
-                <a class="text-decoration-none text-white mx-4" href="/index/1">Elettronica</a>
-                <a class="text-decoration-none text-white mx-4" href="/index/2">Abbigliamento</a>
-                <a class="text-decoration-none text-white mx-4" href="/index/3">Casa</a>
+                <a class="text-decoration-none text-white mx-4" href="/index/home/1">Elettronica</a>
+                <a class="text-decoration-none text-white mx-4" href="/index/home/2">Abbigliamento</a>
+                <a class="text-decoration-none text-white mx-4" href="/index/home/3">Casa</a>
             </div>
     
             <form class="d-flex ms-auto w-25 opacity-50 position-relative" role="search" method="get" action="/index">
@@ -54,7 +54,7 @@
                         <div class="fs-6 text-center accent">Prodotti in evidenza</div>
                         <div id="postCarousel" class="carousel slide" data-bs-ride="carousel">
                             <div class="carousel-inner">
-                                <div class="carousel-item" th:each="product, iter : ${list}"
+                                <div class="carousel-item" th:each="product, iter : ${evidence}"
                                     th:classappend="${iter.index == 0} ? 'active'">
                                     <div class="carousel_card text-center align-item-center carousel_card_bg" style="width: 100%; max-height: 350px; overflow: hidden;">
                                         <div class="card-body text-center card_body">
@@ -62,8 +62,7 @@
                                             <img th:src="@{/img/{imageName}(imageName=${product.photoPath})}" alt="Photo" class="img-fluid w-100 d-block mx-auto carousel_img" style="object-fit: cover; height: auto; max-height: 500px;">
                                             <h5 class="card-title fs-4 m-2" th:text="${product.nome}"></h5>
                                             <!-- BODY  -->
-                                            <p class="card-text" th:text="${#strings.abbreviate(product.descrizione, 100)}"></p>
-                                            <a href="#" class=" mdb-button text-decoration-none fs-6">continua a leggere</a>
+                                            <p class="card-text" th:text="${#strings.abbreviate(product.descrizione, 100)}"></p><a href="#" class=" mdb-button text-decoration-none fs-6">continua a leggere</a>
                                         </div>
 
                                     </div>

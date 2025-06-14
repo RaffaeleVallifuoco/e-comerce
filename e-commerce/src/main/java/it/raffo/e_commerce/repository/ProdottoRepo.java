@@ -10,9 +10,11 @@ import it.raffo.e_commerce.model.Prodotto;
 
 public interface ProdottoRepo extends JpaRepository<Prodotto, Integer> {
 
-    @Query("SELECT p FROM Prodotto p WHERE LOWER(p.nome) LIKE LOWER(CONCAT('%', :keyword, '%')) OR LOWER(p.descrizione) LIKE LOWER(CONCAT('%', :keyword, '%')) OR LOWER(p.marca.nome) LIKE LOWER(CONCAT('%', :keyword, '%'))")
-    List<Prodotto> cercaProdotti(@Param("keyword") String keyword);
+    List<Prodotto> findByEvidenceTrue();
 
     List<Prodotto> findByCategoriaId(Integer categoriaId);
+
+    @Query("SELECT p FROM Prodotto p WHERE LOWER(p.nome) LIKE LOWER(CONCAT('%', :keyword, '%')) OR LOWER(p.descrizione) LIKE LOWER(CONCAT('%', :keyword, '%')) OR LOWER(p.marca.nome) LIKE LOWER(CONCAT('%', :keyword, '%'))")
+    List<Prodotto> cercaProdotti(@Param("keyword") String keyword);
 
 }

@@ -47,13 +47,16 @@ public class Prodotto {
     @JoinColumn(name = "marca_id", nullable = false)
     private Marca marca;
 
+    @Column(name = "evidence")
+    private boolean evidence;
+
     // CONSTRUCTORS
 
     public Prodotto() {
     }
 
     public Prodotto(Integer id, String nome, String descrizione, Double prezzo, Integer quantita,
-            LocalDate dataProduzione, Categoria categoria, Marca marca, String foto) {
+            LocalDate dataProduzione, Categoria categoria, Marca marca, String foto, boolean evidence) {
         this.id = id;
         this.nome = nome;
         this.descrizione = descrizione;
@@ -63,6 +66,7 @@ public class Prodotto {
         this.categoria = categoria;
         this.marca = marca;
         this.photoPath = foto;
+        this.evidence = evidence;
     }
 
     // GETTER & SETTER
@@ -129,6 +133,14 @@ public class Prodotto {
 
     public void setMarca(Marca marca) {
         this.marca = marca;
+    }
+
+    public boolean isEvidence() {
+        return evidence;
+    }
+
+    public void setEvidence(boolean evidence) {
+        this.evidence = evidence;
     }
 
     // TOSTRING - EQUALS - HASHCODE

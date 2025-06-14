@@ -150,13 +150,6 @@ body {
 
 
 
-.separator {
-    width: 1px;
-    background-color: rgba(0, 0, 0, 0.2);
-    /* Colore del separatore */
-    height: 100%;
-    /* Altezze varie a seconda del contenuto */
-}
 
 .footer_image {
     position: relative;

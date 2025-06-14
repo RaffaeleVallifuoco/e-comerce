@@ -51,6 +51,7 @@ public class IndexController {
         model.addAttribute("list", productList);
         model.addAttribute("keyword", keyword);
         model.addAttribute("evidence", evidenceList);
+        model.addAttribute("category", categoryRepo.findAll());
 
         return "/home/index";
     }
@@ -64,6 +65,8 @@ public class IndexController {
         productList = productRepo.findByCategoriaId(categoryId);
 
         model.addAttribute("list", productList);
+        model.addAttribute("evidence", productRepo.findByEvidenceTrue());
+        model.addAttribute("category", categoryRepo.findAll());
 
         return "/home/index";
     }

@@ -42,19 +42,29 @@ public class ProductController {
 
         model.addAttribute("product", product);
         model.addAttribute("evidence", productRepo.findByEvidenceTrue());
+        model.addAttribute("category", categoryRepo.findAll());
 
         return "/home/detail";
 
     }
 
-    // UPDATE
-    @GetMapping("/{id}/edit")
-    public String getEditForm(@PathVariable("id") Integer id, Model model) {
-        model.addAttribute("ticket", productRepo.getReferenceById(id));
-        model.addAttribute("evidence", productRepo.findByEvidenceTrue());
-        return "/tab/edit";
+    // FORM INSERT / UPDATE
+    @GetMapping({ "/form", "/form/{id}" })
+    public String productForm(@PathVariable(required = false) Integer id, Model model) {
+        if (id != null) {
+            Prodotto product = productRepo.findById(id).orElse(new Prodotto());
+            model.addAttribute("product", product);
+            model.addAttribute("isUpdate", true);
+        } else {
+            model.addAttribute("product", new Prodotto());
+        }
+        model.addAttribute("brand", marcaRepo.findAll());
+        model.addAttribute("isUpdate", false);
+
+        return "/tab/form"; //
     }
 
+    // UPDATE
     @PostMapping("/{id}/edit")
     public String Update(@PathVariable("id") Integer id, @Valid @ModelAttribute("ticket") Prodotto productUpdate,
             BindingResult bindingresult,
@@ -62,8 +72,9 @@ public class ProductController {
 
         if (bindingresult.hasErrors()) {
             model.addAttribute("evidence", productRepo.findByEvidenceTrue());
+            model.addAttribute("category", categoryRepo.findAll());
 
-            return "/tab/edit";
+            return "/{id}/edit";
         }
         Prodotto existingProduct = productRepo.getReferenceById(id);
 
@@ -78,16 +89,7 @@ public class ProductController {
 
         productRepo.save(existingProduct);
 
-        return "redirect:/show/{id}";
-    }
-
-    // DELETE
-    @PostMapping("/{id}/delete")
-    public String delete(@PathVariable("id") Integer id) {
-
-        productRepo.deleteById(id);
-
-        return "redirect:/tab/index";
+        return "redirect:/product/show/{id}";
     }
 
     // CREATE
@@ -105,8 +107,16 @@ public class ProductController {
 
         productRepo.save(productForm);
 
-        return "redirect:/tab/index";
+        return "redirect:/tab/home";
 
     }
 
+    // DELETE
+    @PostMapping("/{id}/delete")
+    public String delete(@PathVariable("id") Integer id) {
+
+        productRepo.deleteById(id);
+
+        return "redirect:/tab/home";
+    }
 }

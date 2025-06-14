@@ -21,24 +21,27 @@
 
 
 <body>
-    <!-- ---------------------
-     -------HEADER--------   
-     --------------------- -->
+    <!-- HEADER -->
 
     <header>
         <nav class="navbar glass_nav">
             <div class="container-fluid my-o py-0 ">
-                <a class="navbar-brand icon-link icon-link-hover fs-4 my-0 py-0 mx-5" th:href="@{/index}">
+                <a class="navbar-brand icon-link icon-link-hover fs-4 my-0 py-0 mx-5" th:href="@{/index/home}">
                     <img th:src="@{/img/nozama_logo_white.png}" alt="nozama ogo" class="navbar-logo my-o py-0"
                         width="90" />
                 </a>
-                <div class=" me-auto mx-4 ">
-                    <a class="text-decoration-none text-white mx-4" href="/index/home/1">Elettronica</a>
-                    <a class="text-decoration-none text-white mx-4" href="/index/home/2">Abbigliamento</a>
-                    <a class="text-decoration-none text-white mx-4" href="/index/home/3">Casa</a>
+                <div class="me-auto mx-4">
+                    <ul class="list-unstyled d-flex">
+                        <li th:each="categories : ${category}">
+                            <a class="text-decoration-none text-white mx-4" th:text="${categories.nome}"
+                                th:href="@{'/product/show/' + ${categories.id}}">
+                            </a>
+                        </li>
+                    </ul>
                 </div>
 
-                <form class="d-flex ms-auto w-25 opacity-50 position-relative" role="search" method="get" th:action="@{/index/home}">
+                <form class="d-flex ms-auto w-25 opacity-50 position-relative" role="search" method="get"
+                    th:action="@{/index/home}">
                     <input type="text" name="keyword" class="nav_input form-control text-white border-0  pe-5"
                         placeholder="Cerca nel sito" aria-label="cerca" th:value="${keyword}">
                     <a th:if="${keyword != null && !keyword.isEmpty()}" th:href="@{/index}"
@@ -53,9 +56,9 @@
     </header>
 
 
-    <!-- ---------------------
-     --------MAIN---------   
-     --------------------- -->
+    <!-- MAIN -->
+
+
     <main>
 
         <div class="container">
@@ -96,7 +99,6 @@
                             </button>
                         </div>
                     </div>
-                </div>
                 <!-- SECOND ROW -->
                 <div class="row">
                     <!-- CARD DETAIL -->
@@ -114,8 +116,8 @@
                                     <p class="card-text fs-3" th:text="${product.descrizione}"></p>
                                     <div class="d-flex justify-content-between mt-3">
                                         <p class="fs-4 accent">
-                                            <span  th:text="${product.prezzo}"></span>&nbsp;&euro;
-                                        </p> 
+                                            <span th:text="${product.prezzo}"></span>&nbsp;&euro;
+                                        </p>
                                         <span th:text="${product.categoria.nome}"></span>
                                     </div>
 

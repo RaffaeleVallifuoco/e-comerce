@@ -43,6 +43,8 @@ public class TabController {
 
         model.addAttribute("list", productList);
         model.addAttribute("keyword", keyword);
+        model.addAttribute("evidence", productRepo.findByEvidenceTrue());
+        model.addAttribute("category", categoryRepo.findAll());
 
         return "/tab/index";
     }
@@ -56,6 +58,8 @@ public class TabController {
         productList = productRepo.findByCategoriaId(categoryId);
 
         model.addAttribute("list", productList);
+        model.addAttribute("evidence", productRepo.findByEvidenceTrue());
+        model.addAttribute("category", categoryRepo.findAll());
 
         return "/tab/index";
     }

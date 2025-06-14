@@ -25,19 +25,24 @@
      -------HEADER--------   
      --------------------- -->
 
+    <!-- HEADER -->
+    
     <header>
         <nav class="navbar glass_nav">
             <div class="container-fluid my-o py-0 ">
-                <a class="navbar-brand icon-link icon-link-hover fs-4 my-0 py-0 mx-5" th:href="@{/index}">
-                    <img th:src="@{/img/nozama_logo_white.png}" alt="nozama ogo" class="navbar-logo my-o py-0"
-                        width="90" />
+                <a class="navbar-brand icon-link icon-link-hover fs-4 my-0 py-0 mx-5" th:href="@{/index/home}">
+                    <img th:src="@{/img/nozama_logo_white.png}" alt="nozama ogo" class="navbar-logo my-o py-0" width="90" />
                 </a>
-                <div class=" me-auto mx-4 ">
-                    <a class="text-decoration-none text-white mx-4" href="/index/home/1">Elettronica</a>
-                    <a class="text-decoration-none text-white mx-4" href="/index/home/2">Abbigliamento</a>
-                    <a class="text-decoration-none text-white mx-4" href="/index/home/3">Casa</a>
+                <div class="me-auto mx-4">
+                    <ul class="list-unstyled d-flex">
+                        <li th:each="categories : ${category}">
+                            <a class="text-decoration-none text-white mx-4" th:text="${categories.nome}"
+                                th:href="@{'/product/show/' + ${categories.id}}">
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-
+    
                 <form class="d-flex ms-auto w-25 opacity-50 position-relative" role="search" method="get"
                     th:action="@{/index/home}">
                     <input type="text" name="keyword" class="nav_input form-control text-white border-0  pe-5"
@@ -61,79 +66,74 @@
 
         <div class="container">
             <div class="col-lg-12">
-                <!-- FIRST ROW  -->
-                <div class="row">
-                    <!-- CAROUSEL  -->
-                    <div id="carouselExampleAutoplaying" class="carousel slide mt-4 opacity-75" data-bs-ride="carousel">
-                        <div class="fs-6 text-center accent">Prodotti in evidenza</div>
-                        <div id="postCarousel" class="carousel slide" data-bs-ride="carousel">
-                            <div class="carousel-inner">
-                                <div class="carousel-item" th:each="product, iter : ${evidence}"
-                                    th:classappend="${iter.index == 0} ? 'active'">
-                                    <div class="carousel_card text-center align-item-center carousel_card_bg"
-                                        style="width: 100%; max-height: 350px; overflow: hidden;">
-                                        <div class="card-body text-center card_body">
-                                            <!-- IMG -->
-                                            <img th:src="@{/img/{imageName}(imageName=${product.photoPath})}"
-                                                alt="Photo" class="img-fluid w-100 d-block mx-auto carousel_img"
-                                                style="object-fit: cover; height: auto; max-height: 200px;">
-                                            <h5 class="card-title fs-4 m-2" th:text="${product.nome}"></h5>
-                                            <!-- BODY  -->
-
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <button class="carousel-control-prev" type="button"
-                                data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button"
-                                data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <!-- SECOND ROW -->
+                <!--  ROW -->
                 <div class="row">
                     <!-- CARD FORM-->
                     <div class="card mt-5 no-hover" style="width: 100%;">
-                        <div class="row g-0">
-                            <!-- <div class="col-md-4">
+                        <div class="row g-0 justify-content-between">
+                            <div class="col-md-6">
                                 <img th:src="@{/img/{imageName}(imageName=${product.photoPath})}" alt="Photo"
                                     class="img-fluid w-100 d-block mx-auto carousel_img"
                                     style="object-fit: cover; height: auto; max-height: 5000px;">
-                            </div> -->
-                            <form th:action="@{/product/save}" method="post" th:object="${product}">
-                                <input type="hidden" th:field="*{id}" />
-                            
-                                <label>Nome</label>
-                                <input type="text" th:field="*{nome}" class="form-control" />
-                            
-                                <label>Descrizione</label>
-                                <textarea th:field="*{descrizione}" class="form-control"></textarea>
-                            
-                                <label>Prezzo</label>
-                                <input type="number" th:field="*{prezzo}" step="0.01" class="form-control" />
-                            
-                                <label>Marca</label>
-                                <select th:field="*{marca}" class="form-select">
-                                    <option th:each="m : ${marche}" th:value="${m}" th:text="${m.nome}"></option>
-                                </select>
-                            
-                                <label>Categoria</label>
-                                <select th:field="*{categoria}" class="form-select">
-                                    <option th:each="c : ${categorie}" th:value="${c}" th:text="${c.nome}"></option>
-                                </select>
-                            
-                                <button type="submit" class="btn btn-primary mt-3">
-                                    <span th:text="${product.id != null} ? 'Modifica' : 'Crea'"></span>
-                                </button>
-                            </form>
+                            </div>
+                                <div class="col-md-4">
+                                    <form
+                                        th:action="@{${isUpdate} ? '/product/' + ${product.id} + '/edit' : '/product/insert'}"
+                                        method="post" th:object="${product}" class="glass p-4 mx-auto"
+                                        style="max-width: 480px;">
+                                        <div class="mb-3">
+                                            <label for="nome" class="form-label text-white fw-semibold">Nome
+                                                prodotto</label>
+                                            <input type="text" id="nome" th:field="*{nome}" class="form-control rounded-4"
+                                                placeholder="Inserisci il nome" />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="descrizione"
+                                                class="form-label text-white fw-semibold">Descrizione</label>
+                                            <textarea id="descrizione" th:field="*{descrizione}"
+                                                class="form-control rounded-4" rows="3"
+                                                placeholder="Descrizione del prodotto"></textarea>
+                                        </div>
+                                        <div class="mb-3 form-check">
+                                            <input type="checkbox" id="evidence" th:field="*{evidence}"
+                                                class="form-check-input" />
+                                            <label for="evidence" class="form-check-label text-white">Evidenza</label>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="categoria"
+                                                class="form-label text-white fw-semibold">Categoria</label>
+                                            <select id="categoria" th:field="*{categoria}" class="form-select rounded-4">
+                                                <option th:each="cat : ${category}" th:value="${cat.id}"
+                                                    th:text="${cat.nome}"></option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="marca" class="form-label text-white fw-semibold">Marca</label>
+                                            <select id="marca" th:field="*{marca}" class="form-select rounded-4">
+                                                <option th:each="marca : ${brand}" th:value="${marca.id}"
+                                                    th:text="${marca.nome}"></option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="prezzo" class="form-label text-white fw-semibold">Prezzo (€)</label>
+                                            <input type="number" id="prezzo" th:field="*{prezzo}" step="0.01"
+                                                class="form-control rounded-4" placeholder="0.00" />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="quantita" class="form-label text-white fw-semibold">Quantità</label>
+                                            <input type="number" id="quantita" th:field="*{quantita}"
+                                                class="form-control rounded-4" placeholder="0" />
+                                        </div>
+                                        <div class="mb-4">
+                                            <label for="dataProduzione" class="form-label text-white fw-semibold">Data di
+                                                produzione</label>
+                                            <input type="date" id="dataProduzione" th:field="*{dataProduzione}"
+                                                class="form-control rounded-4" />
+                                        </div>
+                                        <button type="submit" class="btn btn-warning w-100 fw-semibold rounded-4"
+                                            th:text="${isUpdate} ? 'Aggiorna' : 'Inserisci'"></button>
+                                    </form>
+                                </div>
                         </div>
                     </div>
                 </div>

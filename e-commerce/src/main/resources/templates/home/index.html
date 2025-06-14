@@ -2,69 +2,79 @@
 <html xmlns:th='http://www.thymeleaf.org' lang=en>
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>index</title>
+    <title>index</title>
 
-  <!-- Bootstrap CSS --> 
-  <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH' crossorigin='anonymous'>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Bootstrap CSS -->
+    <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css' rel='stylesheet'
+        integrity='sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH' crossorigin='anonymous'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
 
 <body>
 
-  <header>
-    <nav class="navbar glass_nav">
-        <div class="container-fluid my-o py-0 ">
-            <a class="navbar-brand icon-link icon-link-hover fs-4 my-0 py-0 mx-5" th:href="@{/index}">
-                <img th:src="@{/img/nozama_logo_white.png}" alt="nozama ogo" class="navbar-logo my-o py-0" width="90" />
-            </a>
-            <div class=" me-auto mx-4 ">
-                <a class="text-decoration-none text-white mx-4" href="/index/home/1">Elettronica</a>
-                <a class="text-decoration-none text-white mx-4" href="/index/home/2">Abbigliamento</a>
-                <a class="text-decoration-none text-white mx-4" href="/index/home/3">Casa</a>
-            </div>
-    
-            <form class="d-flex ms-auto w-25 opacity-50 position-relative" role="search" method="get" action="/index">
-                <input type="text" name="keyword" class="nav_input form-control text-white border-0  pe-5" placeholder="Cerca nel sito"
-                    aria-label="cerca" th:value="${keyword}">
-                <a th:if="${keyword != null && !keyword.isEmpty()}"
-                   th:href="@{/index}" class="position-absolute end-0 top-50 translate-middle-y me-3 text-decoration-none ">
-                    <a class="navbar-brand icon-link icon-link-hover fs-4 my-0 py-0 mx-5" th:href="@{/index}">
-                        <img alt="nozama ogo" class="bi bi-x-circle navbar-logo my-o py-0" width="90" />
-                    </a>
-                </a>
-            </form>
-        </div>
-    </nav>
-  </header>
+    <!-- HEADER -->
 
- <!-- MAIN -->
-  <main>
-    <div class="container">
+    <header>
+        <nav class="navbar glass_nav">
+            <div class="container-fluid my-o py-0 ">
+                <a class="navbar-brand icon-link icon-link-hover fs-4 my-0 py-0 mx-5" th:href="@{/index/home}">
+                    <img th:src="@{/img/nozama_logo_white.png}" alt="nozama ogo" class="navbar-logo my-o py-0"
+                           width="90" />
+                </a>
+                <div class="me-auto mx-4">
+                    <ul class="list-unstyled d-flex">
+                        <li th:each="categories : ${category}">
+                            <a class="text-decoration-none text-white mx-4" th:text="${categories.nome}"
+                                th:href="@{'/index/home/' + ${categories.id}}">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <form class="d-flex ms-auto w-25 opacity-50 position-relative" role="search" method="get"
+                    th:action="@{/index/home}">
+                    <input type="text" name="keyword" class="nav_input form-control text-white border-0  pe-5"
+                        placeholder="Cerca nel sito" aria-label="cerca" th:value="${keyword}">
+                    <a th:if="${keyword != null && !keyword.isEmpty()}" th:href="@{/index}"
+                        class="position-absolute end-0 top-50 translate-middle-y me-3 text-decoration-none ">
+                        <a class="navbar-brand icon-link icon-link-hover fs-4 my-0 py-0 mx-5" th:href="@{/index}">
+                            <img alt="nozama ogo" class="bi bi-x-circle navbar-logo my-o py-0" width="90" />
+                        </a>
+                    </a>
+                </form>
+            </div>
+        </nav>
+    </header>
+
+    <!-- MAIN -->
+    <main>
+        <div class="container">
             <!-- RIGHT COL  -->
             <div class="col-lg-12">
                 <!-- FIRST ROW  -->
-                 <div class="row">
+                <div class="row">
                     <!-- CAROUSEL  -->
-                    <div id="carouselExampleAutoplaying" class="carousel slide mt-4" data-bs-ride="carousel">
-                        <div class="fs-6 text-center accent">Prodotti in evidenza</div>
+                    <div id="carouselExampleAutoplaying" class="carousel slide mt-4 opacity-75" data-bs-ride="carousel">
+                        <h4 class=" text-center accent">Prodotti in evidenza</h4>
                         <div id="postCarousel" class="carousel slide" data-bs-ride="carousel">
                             <div class="carousel-inner">
                                 <div class="carousel-item" th:each="product, iter : ${evidence}"
                                     th:classappend="${iter.index == 0} ? 'active'">
-                                    <div class="carousel_card text-center align-item-center carousel_card_bg" style="width: 100%; max-height: 350px; overflow: hidden;">
+                                    <div class="carousel_card text-center align-item-center carousel_card_bg"
+                                        style="width: 100%; max-height: 350px; overflow: hidden;">
                                         <div class="card-body text-center card_body">
                                             <!-- IMG -->
-                                            <img th:src="@{/img/{imageName}(imageName=${product.photoPath})}" alt="Photo" class="img-fluid w-100 d-block mx-auto carousel_img" style="object-fit: cover; height: auto; max-height: 500px;">
-                                            <h5 class="card-title fs-4 m-2" th:text="${product.nome}"></h5>
-                                            <!-- BODY  -->
-                                            <p class="card-text" th:text="${#strings.abbreviate(product.descrizione, 100)}"></p><a href="#" class=" mdb-button text-decoration-none fs-6">continua a leggere</a>
+                                            <img th:src="@{/img/{imageName}(imageName=${product.photoPath})}" alt="Photo"
+                                                class="img-fluid w-100 d-block mx-auto carousel_img"
+                                                style="object-fit: cover; height: auto; max-height: 200px;">
+                                            <h6 class="card-title m-2" th:text="${product.marca.nome + ' ' + product.nome}"></h6>
                                         </div>
-
+                    
                                     </div>
                                 </div>
                             </div>
@@ -80,39 +90,43 @@
                             </button>
                         </div>
                     </div>
-                 </div>
-                 <!-- SECOND ROW -->
-                <div class="row">
-                    <!-- CARD -->
-                    <div class="col-lg-3 my-4" th:each="product, iter : ${list}" th:classappend="${iter.index == 0} ? 'card-highlight' : ''">
-                        <div class="card glass card_bg">
-                            <div class="card-body card_body">
-                                <!-- IMG -->
-                                <img th:src="@{/img/{imageName}(imageName=${product.photoPath})}" alt="Photo"
-                                    class="img-fluidpy-2 card_img">
-                                <!-- TITLE -->
-                                <a th:href="@{/home(categoryName=${product.Categoria.nome})}"
-                                    class=" text-decoration-none ms-auto"
-                                    th:text="${product.categoria.nome}">Categoria</a>
-                    
-                                </a>
-                                <h5 class="card-title fs-4 m-2" th:text="${product.nome}"></h5>
-                                <!-- BODY  -->
-                                <p class="card-text" th:text="${#strings.abbreviate(product.descrizione, 100)}"></p>
-                                <a href="#" class=" mdb-button text-decoration-none fs-6">continua a leggere</a>
-                            </div>
-                        </div>
+                </div>
+            </div>
+        
+        <!-- SECOND ROW -->
+        <div class="row">
+            <!-- CARD -->
+            <div class="col-lg-3 my-4" th:each="product, iter : ${list}"
+                th:classappend="${iter.index == 0} ? 'card-highlight' : ''">
+                <div class="card glass card_bg">
+                    <div class="card-body card_body">
+                        <!-- IMG -->
+                        <img th:src="@{/img/{imageName}(imageName=${product.photoPath})}" alt="Photo"
+                            class="img-fluidpy-2 card_img">
+                        <!-- TITLE -->
+                        <a th:href="@{/home(categoryName=${product.Categoria.nome})}"
+                            class=" text-decoration-none ms-auto" th:text="${product.categoria.nome}">Categoria</a>
+
+                        </a>
+                        <h5 class="card-title fs-4 m-2" th:text="${product.nome}"></h5>
+                        <!-- BODY  -->
+                        <p class="card-text" th:text="${#strings.abbreviate(product.descrizione, 100)}"></p>
+                        <a href="#" class=" mdb-button text-decoration-none fs-6">continua a leggere</a>
                     </div>
                 </div>
-    </div>
-  </main>
+            </div>
+        </div>
+        </div>
+    </main>
 
-  <footer>
-  </footer>
+    <footer>
+    </footer>
 
 
-  <!-- Bootstrap bundle --> 
-  <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js' integrity='sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz' crossorigin='anonymous'></script>
+    <!-- Bootstrap bundle -->
+    <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js'
+        integrity='sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz'
+        crossorigin='anonymous'></script>
 
 
 </body>

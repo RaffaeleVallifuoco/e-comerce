@@ -17,21 +17,26 @@
 
 <body>
 
+    <!-- HEADER -->
+    
     <header>
         <nav class="navbar glass_nav">
             <div class="container-fluid my-o py-0 ">
-                <a class="navbar-brand icon-link icon-link-hover fs-4 my-0 py-0 mx-5" th:href="@{/index}">
-                    <img th:src="@{/img/nozama_logo_white.png}" alt="nozama ogo" class="navbar-logo my-o py-0"
-                        width="90" />
+                <a class="navbar-brand icon-link icon-link-hover fs-4 my-0 py-0 mx-5" th:href="@{/index/home}">
+                    <img th:src="@{/img/nozama_logo_white.png}" alt="nozama ogo" class="navbar-logo my-o py-0" width="90" />
                 </a>
-                <div class=" me-auto mx-4 ">
-                    <a class="text-decoration-none text-white mx-4" href="/index/home/1">Elettronica</a>
-                    <a class="text-decoration-none text-white mx-4" href="/index/home/2">Abbigliamento</a>
-                    <a class="text-decoration-none text-white mx-4" href="/index/home/3">Casa</a>
+                <div class="me-auto mx-4">
+                    <ul class="list-unstyled d-flex">
+                        <li th:each="categories : ${category}">
+                            <a class="text-decoration-none text-white mx-4" th:text="${categories.nome}"
+                                th:href="@{'/product/show/' + ${categories.id}}">
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-
+    
                 <form class="d-flex ms-auto w-25 opacity-50 position-relative" role="search" method="get"
-                    action="/index">
+                    th:action="@{/index/home}">
                     <input type="text" name="keyword" class="nav_input form-control text-white border-0  pe-5"
                         placeholder="Cerca nel sito" aria-label="cerca" th:value="${keyword}">
                     <a th:if="${keyword != null && !keyword.isEmpty()}" th:href="@{/index}"
@@ -49,6 +54,38 @@
         <div class="container">
             <div class="col-12">
                 <div class="row">
+                    <!-- CAROUSEL  -->
+                    <div id="carouselExampleAutoplaying" class="carousel slide mt-4 opacity-75" data-bs-ride="carousel">
+                        <h4 class=" text-center accent">Prodotti in evidenza</h4>
+                        <div id="postCarousel" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item" th:each="product, iter : ${evidence}"
+                                    th:classappend="${iter.index == 0} ? 'active'">
+                                    <div class="carousel_card text-center align-item-center carousel_card_bg"
+                                        style="width: 100%; max-height: 350px; overflow: hidden;">
+                                        <div class="card-body text-center card_body">
+                                            <!-- IMG -->
+                                            <img th:src="@{/img/{imageName}(imageName=${product.photoPath})}" alt="Photo"
+                                                class="img-fluid w-100 d-block mx-auto carousel_img"
+                                                style="object-fit: cover; height: auto; max-height: 200px;">
+                                            <h6 class="card-title m-2" th:text="${product.marca.nome + ' ' + product.nome}"></h6>
+                                        </div>
+                    
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
+                                data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
+                                data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    </div>
                     <!-- TABLE -->
                     <div class="border-0 card-flow">
                         <div class="card-body card-scrollable card-bg border-0">
@@ -105,12 +142,12 @@
                                         <td>
                                             <div class="d-flex justify-content-evenly">
                                                 <a class="btn icon-link icon-link-hover text-decoration-none  text-white rounded-pill me-3"
-                                                    th:href="@{|/index/show/${product.id}|}">
+                                                    th:href="@{|/product/show/${product.id}|}">
                                                     <i class="bi bi-search fw-bold fs-3"
                                                         style="color: rgb(0, 94, 255);"></i>
                                                 </a>
                                                 <a class="btn icon-link icon-link-hover text-decoration-none  text-white rounded-pill me-3 fs-3"
-                                                    th:href="@{|/index/show/${product.id}/edit|}">
+                                                    th:href="@{|/product/form/${product.id}|}">
                                                     <i class="bi bi-pencil-fill" style="color: rgb(106, 0, 255);"></i>
                                                 </a>
                                                 <!-- Button trigger modal -->
@@ -123,25 +160,25 @@
                                                 </button>
                                             </div>
                                             <!-- Modal -->
-                                            <!-- <div class="modal fade" th:id="'deleteModal' + ${product.id}"
+                                             <div class="modal fade glass" th:id="'deleteModal' + ${product.id}"
                                                 data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
                                                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                                <div class="modal-dialog card-bg">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header card-bg">
+                                                <div class="modal-dialog card-bg glass">
+                                                    <div class="modal-content glass">
+                                                        <div class="modal-header card-bg glass">
                                                             <h1 class="modal-title fs-5" id="staticBackdropLabel">
                                                                 Attenzione</h1>
                                                             <button type="button" class="btn-close"
                                                                 data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body card-bg p-0">
-                                                            Sei sicuro di voler eliminare questo ticket ?
+                                                            Sei sicuro di voler eliminare il prodotto ?
                                                             <img class="ms-auto" th:src="@{/img/raffacciouloNoBg.png}"
                                                                 width="30%" height="auto"></img>
                                                         </div>
 
                                                         <div class="modal-footer card-bg">
-                                                            <form th:action="@{'/ticket/{id}/delete'(id=${ticket.id})}"
+                                                            <form th:action="@{'/product/{id}/delete'(id=${product.id})}"
                                                                 method="post">
                                                                 <button type="button" class="btn btn-grey rounded"
                                                                     data-bs-dismiss="modal">Annulla</button>
@@ -152,7 +189,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div> -->
+                                            </div> 
                                         </td>
                                     </tr>
                                 </tbody>

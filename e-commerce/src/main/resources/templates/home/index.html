@@ -59,24 +59,25 @@
                 <!-- FIRST ROW  -->
                 <div class="row">
                     <!-- CAROUSEL  -->
-                    <div id="carouselExampleAutoplaying" class="carousel slide mt-4 opacity-75" data-bs-ride="carousel">
+                    <div id="carouselExampleAutoplaying" class="carousel slide mt-4 opacity-75 text-decoration-none" data-bs-ride="carousel">
                         <h4 class=" text-center accent">Prodotti in evidenza</h4>
                         <div id="postCarousel" class="carousel slide" data-bs-ride="carousel">
                             <div class="carousel-inner">
                                 <div class="carousel-item" th:each="product, iter : ${evidence}"
-                                    th:classappend="${iter.index == 0} ? 'active'">
-                                    <div class="carousel_card text-center align-item-center carousel_card_bg"
-                                        style="width: 100%; max-height: 350px; overflow: hidden;">
-                                        <div class="card-body text-center card_body">
-                                            <!-- IMG -->
-                                            <img th:src="@{/img/{imageName}(imageName=${product.photoPath})}" alt="Photo"
-                                                class="img-fluid w-100 d-block mx-auto carousel_img"
-                                                style="object-fit: cover; height: auto; max-height: 200px;">
-                                            <h6 class="card-title m-2" th:text="${product.marca.nome + ' ' + product.nome}"></h6>
+                                th:classappend="${iter.index == 0} ? 'active'">
+                                <a class="text-decoration-none text-white" th:href="@{'/product/show/' + ${product.id}}">
+                                        <div class="carousel_card text-center align-item-center carousel_card_bg"
+                                            style="width: 100%; max-height: 350px; overflow: hidden;">
+                                            <div class="card-body text-center card_body">
+                                                <!-- IMG -->
+                                                <img th:src="@{/img/{imageName}(imageName=${product.photoPath})}" alt="Photo"
+                                                    class="img-fluid w-100 d-block mx-auto carousel_img"
+                                                    style="object-fit: cover; height: auto; max-height: 200px;">
+                                                <h6 class="card-title m-2 text-decoration-none" th:text="${product.marca.nome + ' ' + product.nome}"></h6>
+                                            </div>
                                         </div>
-                    
+                                    </a>
                                     </div>
-                                </div>
                             </div>
                             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
                                 data-bs-slide="prev">
@@ -96,24 +97,24 @@
         <!-- SECOND ROW -->
         <div class="row">
             <!-- CARD -->
-            <div class="col-lg-3 my-4" th:each="product, iter : ${list}"
+            <div class="col-lg-3 my-4 " th:each="product, iter : ${list}"
                 th:classappend="${iter.index == 0} ? 'card-highlight' : ''">
-                <div class="card glass card_bg">
-                    <div class="card-body card_body">
-                        <!-- IMG -->
-                        <img th:src="@{/img/{imageName}(imageName=${product.photoPath})}" alt="Photo"
-                            class="img-fluidpy-2 card_img">
-                        <!-- TITLE -->
-                        <a th:href="@{/home(categoryName=${product.Categoria.nome})}"
-                            class=" text-decoration-none ms-auto" th:text="${product.categoria.nome}">Categoria</a>
-
-                        </a>
-                        <h5 class="card-title fs-4 m-2" th:text="${product.nome}"></h5>
-                        <!-- BODY  -->
-                        <p class="card-text" th:text="${#strings.abbreviate(product.descrizione, 100)}"></p>
-                        <a href="#" class=" mdb-button text-decoration-none fs-6">continua a leggere</a>
-                    </div>
-                </div>
+                <a th:href="@{'/product/show/' + ${product.id}}">
+                    <div class="card glass card_bg" style="min-height: 50vh;">
+                        <div class="card-body card_body">
+                            <!-- IMG -->
+                            <img th:src="@{/img/{imageName}(imageName=${product.photoPath})}" alt="Photo"
+                                class="img-fluidpy-2 card_img">
+                            <!-- TITLE -->
+                            <a th:href="@{/home(categoryName=${product.Categoria.nome})}"
+                                class=" text-decoration-none ms-auto" th:text="${product.categoria.nome}">Categoria</a>
+                                <h5 class="card-title fs-4 m-2" th:text="${product.nome}"></h5>
+                                <!-- BODY  -->
+                                <p class="card-text" th:text="${#strings.abbreviate(product.descrizione, 100)}"></p>
+                            </div>
+                        </div>
+                    
+                </a>
             </div>
         </div>
         </div>

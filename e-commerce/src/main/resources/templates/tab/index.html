@@ -106,8 +106,8 @@
                                 </thead>
                                 <!-- TBODY -->
                                 <tbody class="">
-                                    <tr th:each="product : ${list}" class="fs-6 mt-5">
-
+                                    <tr th:each="product : ${list}" class="fs-6 mt-5 clickable-row fs-5 fw-bold"
+                                        th:data-href="@{'/product/show/' + ${product.id}}" role="link" tabindex="0">
                                         <td class="tab_img">
                                             <img th:src="@{/img/{imageName}(imageName=${product.photoPath})}"
                                                 alt="Photo"
@@ -207,6 +207,28 @@
     <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js'
         integrity='sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz'
         crossorigin='anonymous'></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const rows = document.querySelectorAll(".clickable-row");
+                rows.forEach(row => {
+                    row.addEventListener("click", () => {
+                        const href = row.getAttribute("data-href");
+                        if (href) {
+                            window.location.href = href;
+                        }
+                    });
+                    row.addEventListener("keypress", e => {
+                        if (e.key === "Enter" || e.key === " ") {
+                            const href = row.getAttribute("data-href");
+                            if (href) {
+                                window.location.href = href;
+                            }
+                        }
+                    });
+                });
+            });
+        </script>
+        
 
 </body>
 

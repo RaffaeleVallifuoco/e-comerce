@@ -102,15 +102,15 @@
                 <!-- SECOND ROW -->
                 <div class="row">
                     <!-- CARD DETAIL -->
-                    <div class="card mt-5 no-hover" style="width: 100%;">
+                    <div class="card mt-5 no-hover" style=" width: 100%;">
                         <div class="row g-0">
                             <div class="col-md-4">
                                 <img th:src="@{/img/{imageName}(imageName=${product.photoPath})}" alt="Photo"
                                     class="img-fluid w-100 d-block mx-auto carousel_img"
-                                    style="object-fit: cover; height: auto; max-height: 5000px;">
+                                    style="object-fit: cover; height: auto; min-height: 50vh;">
                             </div>
                             <div class="col-md-8">
-                                <div class="card-body glass">
+                                <div class="card-body glass" style="min-height:50vh;">
                                     <h5 th:text="${product.marca.nome}"></h5>
                                     <h1 class="card-title" th:text="${product.nome}"></h1>
                                     <p class="card-text fs-3" th:text="${product.descrizione}"></p>

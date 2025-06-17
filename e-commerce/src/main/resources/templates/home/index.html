@@ -27,13 +27,18 @@
                            width="90" />
                 </a>
                 <div class="me-auto mx-4">
-                    <ul class="list-unstyled d-flex">
-                        <li th:each="categories : ${category}">
-                            <a class="text-decoration-none text-white mx-4" th:text="${categories.nome}"
-                                th:href="@{'/index/home/' + ${categories.id}}">
-                            </a>
-                        </li>
-                    </ul>
+                    <div class="dropdown mx-4">
+                        <button class="btn glass dropdown-toggle" type="button" id="categoriesDropdown"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Categorie
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
+                            <li th:each="categories : ${category}">
+                                <a class="dropdown-item" th:text="${categories.nome}"
+                                   th:href="@{'/index/home/' + ${categories.id}}"></a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
 
                 <form class="d-flex ms-auto w-25 opacity-50 position-relative" role="search" method="get"

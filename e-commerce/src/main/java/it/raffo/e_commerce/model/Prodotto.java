@@ -2,8 +2,6 @@ package it.raffo.e_commerce.model;
 
 import java.time.LocalDate;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "Prodotto")
@@ -21,24 +20,29 @@ public class Prodotto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotBlank(message = "Campo Obbligatorio")
     @Column(name = "nome", length = 100, nullable = false)
     private String nome;
 
     @Column(name = "descrizione", length = 600, nullable = true)
     private String descrizione;
 
+    @NotBlank(message = "Campo Obbligatorio")
     @Column(name = "prezzo", nullable = false)
     private Double prezzo;
 
+    @NotBlank(message = "Campo Obbligatorio")
     @Column(name = "quantita", nullable = false)
     private Integer quantita;
 
+    @NotBlank(message = "Campo Obbligatorio")
     @Column(name = "data_produzione", nullable = false)
     private LocalDate dataProduzione;
 
     @Column(name = "foto_path")
     private String photoPath;
 
+    @NotBlank(message = "Campo Obbligatorio")
     @ManyToOne
     @JoinColumn(name = "categoria_id", nullable = false)
     private Categoria categoria;

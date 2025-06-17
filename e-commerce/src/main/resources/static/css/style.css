@@ -177,6 +177,15 @@ body {
     color: rgb(3, 165, 194);
 }
 
+.modal {
+    background: rgba(30, 30, 30, 0.75);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+
 
 
 

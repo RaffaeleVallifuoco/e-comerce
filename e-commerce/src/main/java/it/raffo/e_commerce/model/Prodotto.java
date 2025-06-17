@@ -11,6 +11,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "Prodotto")
@@ -27,22 +28,22 @@ public class Prodotto {
     @Column(name = "descrizione", length = 600, nullable = true)
     private String descrizione;
 
-    @NotBlank(message = "Campo Obbligatorio")
+    @NotNull(message = "Campo Obbligatorio")
     @Column(name = "prezzo", nullable = false)
     private Double prezzo;
 
-    @NotBlank(message = "Campo Obbligatorio")
+    @NotNull(message = "Campo Obbligatorio")
     @Column(name = "quantita", nullable = false)
     private Integer quantita;
 
-    @NotBlank(message = "Campo Obbligatorio")
+    @NotNull(message = "Campo Obbligatorio")
     @Column(name = "data_produzione", nullable = false)
     private LocalDate dataProduzione;
 
     @Column(name = "foto_path")
     private String photoPath;
 
-    @NotBlank(message = "Campo Obbligatorio")
+    @NotNull(message = "Campo Obbligatorio")
     @ManyToOne
     @JoinColumn(name = "categoria_id", nullable = false)
     private Categoria categoria;

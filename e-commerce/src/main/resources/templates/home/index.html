@@ -24,7 +24,7 @@
             <div class="container-fluid my-o py-0 ">
                 <a class="navbar-brand icon-link icon-link-hover fs-4 my-0 py-0 mx-5" th:href="@{/index/home}">
                     <img th:src="@{/img/nozama_logo_white.png}" alt="nozama ogo" class="navbar-logo my-o py-0"
-                           width="90" />
+                        width="90" />
                 </a>
                 <div class="me-auto mx-4">
                     <div class="dropdown mx-4">
@@ -35,7 +35,7 @@
                         <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
                             <li th:each="categories : ${category}">
                                 <a class="dropdown-item" th:text="${categories.nome}"
-                                   th:href="@{'/index/home/' + ${categories.id}}"></a>
+                                    th:href="@{'/index/home/' + ${categories.id}}"></a>
                             </li>
                         </ul>
                     </div>
@@ -52,6 +52,20 @@
                         </a>
                     </a>
                 </form>
+                <div class="dropdown mx-3" th:if="${user != null}">
+                    <a href="#" class="d-block link-light text-decoration-none dropdown-toggle" id="dropdownUser"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <img th:src="@{/img/{image}(image=${user.photoPath})}" alt="Foto profilo" width="40" height="40"
+                            class="rounded-circle">
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end text-small shadow" aria-labelledby="dropdownUser">
+                        <li>
+                            <span class="dropdown-item-text fw-bold" th:text="Ciao + ' ' + ${user.username}"></span>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item text-danger" th:href="@{/logout}">Logout</a></li>
+                    </ul>
+                </div>
             </div>
         </nav>
     </header>
@@ -64,33 +78,36 @@
                 <!-- FIRST ROW  -->
                 <div class="row">
                     <!-- CAROUSEL  -->
-                    <div id="carouselExampleAutoplaying" class="carousel slide mt-4 opacity-75 text-decoration-none" data-bs-ride="carousel">
+                    <div id="carouselExampleAutoplaying" class="carousel slide mt-4 opacity-75 text-decoration-none"
+                        data-bs-ride="carousel">
                         <h4 class=" text-center accent">Prodotti in evidenza</h4>
                         <div id="postCarousel" class="carousel slide" data-bs-ride="carousel">
                             <div class="carousel-inner">
                                 <div class="carousel-item" th:each="product, iter : ${evidence}"
-                                th:classappend="${iter.index == 0} ? 'active'">
-                                <a class="text-decoration-none text-white" th:href="@{'/product/show/' + ${product.id}}">
+                                    th:classappend="${iter.index == 0} ? 'active'">
+                                    <a class="text-decoration-none text-white"
+                                        th:href="@{'/product/show/' + ${product.id}}">
                                         <div class="carousel_card text-center align-item-center carousel_card_bg"
                                             style="width: 100%; max-height: 350px; overflow: hidden;">
                                             <div class="card-body text-center card_body">
                                                 <!-- IMG -->
-                                                <img th:src="@{/img/{imageName}(imageName=${product.photoPath})}" alt="Photo"
-                                                    class="img-fluid w-100 d-block mx-auto carousel_img"
+                                                <img th:src="@{/img/{imageName}(imageName=${product.photoPath})}"
+                                                    alt="Photo" class="img-fluid w-100 d-block mx-auto carousel_img"
                                                     style="object-fit: cover; height: auto; max-height: 200px;">
-                                                <h6 class="card-title m-2 text-decoration-none" th:text="${product.marca.nome + ' ' + product.nome}"></h6>
+                                                <h6 class="card-title m-2 text-decoration-none"
+                                                    th:text="${product.marca.nome + ' ' + product.nome}"></h6>
                                             </div>
                                         </div>
                                     </a>
-                                    </div>
+                                </div>
                             </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
-                                data-bs-slide="prev">
+                            <button class="carousel-control-prev" type="button"
+                                data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Previous</span>
                             </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
-                                data-bs-slide="next">
+                            <button class="carousel-control-next" type="button"
+                                data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Next</span>
                             </button>
@@ -98,30 +115,31 @@
                     </div>
                 </div>
             </div>
-        
-        <!-- SECOND ROW -->
-        <div class="row">
-            <!-- CARD -->
-            <div class="col-lg-3 my-4 " th:each="product, iter : ${list}"
-                th:classappend="${iter.index == 0} ? 'card-highlight' : ''">
-                <a th:href="@{'/product/show/' + ${product.id}}">
-                    <div class="card glass card_bg" style="min-height: 50vh;">
-                        <div class="card-body card_body">
-                            <!-- IMG -->
-                            <img th:src="@{/img/{imageName}(imageName=${product.photoPath})}" alt="Photo"
-                                class="img-fluidpy-2 card_img">
-                            <!-- TITLE -->
-                            <a th:href="@{/home(categoryName=${product.Categoria.nome})}"
-                                class=" text-decoration-none ms-auto" th:text="${product.categoria.nome}">Categoria</a>
+
+            <!-- SECOND ROW -->
+            <div class="row">
+                <!-- CARD -->
+                <div class="col-lg-3 my-4 " th:each="product, iter : ${list}"
+                    th:classappend="${iter.index == 0} ? 'card-highlight' : ''">
+                    <a th:href="@{'/product/show/' + ${product.id}}">
+                        <div class="card glass card_bg" style="min-height: 50vh;">
+                            <div class="card-body card_body">
+                                <!-- IMG -->
+                                <img th:src="@{/img/{imageName}(imageName=${product.photoPath})}" alt="Photo"
+                                    class="img-fluidpy-2 card_img">
+                                <!-- TITLE -->
+                                <a th:href="@{/home(categoryName=${product.Categoria.nome})}"
+                                    class=" text-decoration-none ms-auto"
+                                    th:text="${product.categoria.nome}">Categoria</a>
                                 <h5 class="card-title fs-4 m-2" th:text="${product.nome}"></h5>
                                 <!-- BODY  -->
                                 <p class="card-text" th:text="${#strings.abbreviate(product.descrizione, 100)}"></p>
                             </div>
                         </div>
-                    
-                </a>
+
+                    </a>
+                </div>
             </div>
-        </div>
         </div>
     </main>
 

@@ -54,11 +54,14 @@ public class ProductController {
         if (id != null) {
             Prodotto product = productRepo.findById(id).orElse(new Prodotto());
             model.addAttribute("product", product);
+            model.addAttribute("category", categoryRepo.findAll());
             model.addAttribute("isUpdate", true);
+            model.addAttribute("brand", marcaRepo.findAll());
         } else {
             model.addAttribute("product", new Prodotto());
         }
         model.addAttribute("brand", marcaRepo.findAll());
+        model.addAttribute("category", categoryRepo.findAll());
         model.addAttribute("isUpdate", false);
 
         return "/tab/form"; //

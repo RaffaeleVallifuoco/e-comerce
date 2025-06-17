@@ -2,19 +2,21 @@ package it.raffo.e_commerce.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import it.raffo.e_commerce.model.Categoria;
 import it.raffo.e_commerce.model.Prodotto;
+import it.raffo.e_commerce.model.User;
 import it.raffo.e_commerce.repository.ProdottoRepo;
-import jakarta.websocket.server.PathParam;
+import it.raffo.e_commerce.repository.UserRepo;
 import it.raffo.e_commerce.repository.CategoryRepo;
 import it.raffo.e_commerce.repository.MarcaRepo;
 
@@ -30,6 +32,9 @@ public class IndexController {
 
     @Autowired
     MarcaRepo brandRepo;
+
+    @Autowired
+    UserRepo userRepo;
 
     @GetMapping("/home")
     public String index(Model model, @RequestParam(name = "keyword", required = false) String keyword) {
@@ -48,10 +53,16 @@ public class IndexController {
 
         evidenceList = productRepo.findByEvidenceTrue();
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Optional<User> currentUser = userRepo.findByUsername(username);
+        User user = currentUser.get();
+
         model.addAttribute("list", productList);
         model.addAttribute("keyword", keyword);
         model.addAttribute("evidence", evidenceList);
         model.addAttribute("category", categoryRepo.findAll());
+        model.addAttribute("user", user);
 
         return "/home/index";
     }
